@@ -6,37 +6,15 @@ nodes:
   ctl01: 10.0.104.151
   ctl02: 10.0.104.152
   ctl03: 10.0.104.153
-  cmp01: 10.0.104.161
-  cmp02: 10.0.104.162
-  cmp03: 10.0.104.163
 
 types:
   common:
     nodes:
-      - cmp01
-      - cmp02
-      - cmp03
       - ctl01
       - ctl02
       - ctl03
     labels:
       - calico-etcd=enabled
-  openstack_compute:
-    nodes:
-      - ctl01
-      - ctl02
-      - ctl03
-    labels:
-      - openstack-compute-node=enabled
-      - openvswitch=enabled
-  openstack_control:
-    nodes:
-      - ctl01
-      - ctl02
-      - ctl03
-    labels:
-      - openstack-control-plane=enabled
-      - openvswitch=enabled
   ceph_osd:
     nodes:
       - ctl01
@@ -48,13 +26,6 @@ types:
       - ceph-osd=enabled
       - ceph-rgw=enabled
       - ceph-mgr=enabled
-  lma:
-    nodes:
-      - ctl01
-      - ctl02
-      - ctl03
-    labels:
-      - openstack-mon=enabled
   master:
     nodes:
       - ctl01
