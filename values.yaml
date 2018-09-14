@@ -1,28 +1,28 @@
 genesis:
-  hostname: node01.HEAT_ID
+  hostname: node01-HEAT_ID
   ip: 10.1.103.11
   mgmt_interface: ens3
 script:
   user: kingsalamander
   key_file: /root/.ssh/id_rsa
 nodes:
-  node01.HEAT_ID: 10.1.103.11
-  node02.HEAT_ID: 10.1.103.12
-  node03.HEAT_ID: 10.1.103.13
+  node01-HEAT_ID: 10.1.103.11
+  node02-HEAT_ID: 10.1.103.12
+  node03-HEAT_ID: 10.1.103.13
 
 types:
   common:
     nodes:
-      - node01.HEAT_ID
-      - node02.HEAT_ID
-      - node03.HEAT_ID
+      - node01-HEAT_ID
+      - node02-HEAT_ID
+      - node03-HEAT_ID
     labels:
       - calico-etcd=enabled
   master:
     nodes:
-      - node01.HEAT_ID
-      - node02.HEAT_ID
-      - node03.HEAT_ID
+      - node01-HEAT_ID
+      - node02-HEAT_ID
+      - node03-HEAT_ID
     labels:
       - kubernetes-scheduler=enabled
       - kubernetes-apiserver=enabled
