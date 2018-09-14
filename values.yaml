@@ -1,62 +1,28 @@
 genesis:
-  hostname: node01
+  hostname: node01.HEAT_ID
   ip: 10.1.103.11
   mgmt_interface: ens3
 script:
   user: kingsalamander
   key_file: /root/.ssh/id_rsa
 nodes:
-  node01: 10.1.103.11
-  node02: 10.1.103.12
-  node03: 10.1.103.13
+  node01.HEAT_ID: 10.1.103.11
+  node02.HEAT_ID: 10.1.103.12
+  node03.HEAT_ID: 10.1.103.13
 
 types:
   common:
     nodes:
-      - node01
-      - node02
-      - node03
+      - node01.HEAT_ID
+      - node02.HEAT_ID
+      - node03.HEAT_ID
     labels:
       - calico-etcd=enabled
-  openstack_compute:
-    nodes:
-      - node01
-      - node02
-      - node03
-    labels:
-      - openstack-compute-node=enabled
-      - openvswitch=enabled
-  openstack_control:
-    nodes:
-      - node01
-      - node02
-      - node03
-    labels:
-      - openstack-control-plane=enabled
-      - openvswitch=enabled
-  ceph_osd:
-    nodes:
-      - node01
-      - node02
-      - node03
-    labels:
-      - ceph-mds=enabled
-      - ceph-mon=enabled
-      - ceph-osd=enabled
-      - ceph-rgw=enabled
-      - ceph-mgr=enabled
-  lma:
-    nodes:
-      - node01
-      - node02
-      - node03
-    labels:
-      - openstack-mon=enabled
   master:
     nodes:
-      - node01
-      - node02
-      - node03
+      - node01.HEAT_ID
+      - node02.HEAT_ID
+      - node03.HEAT_ID
     labels:
       - kubernetes-scheduler=enabled
       - kubernetes-apiserver=enabled
