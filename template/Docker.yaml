@@ -13,7 +13,7 @@ data:
       - registry:5000
 {% for registry in registries %}
       - {{ registry }}
-{% endfor -%}
+{% endfor %}
     live-restore: true
     max-concurrent-downloads: 10
     oom-score-adjust: -999
