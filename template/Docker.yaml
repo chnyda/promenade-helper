@@ -11,6 +11,9 @@ data:
   config:
     insecure-registries:
       - registry:5000
+{% for registry in registries %}
+      - {{ registry }}
+{% endfor -%}
     live-restore: true
     max-concurrent-downloads: 10
     oom-score-adjust: -999

@@ -2,6 +2,11 @@ genesis:
   hostname: node01-HEAT_ID
   ip: 10.1.103.11
   mgmt_interface: ens3
+registries:
+  - 10.1.103.20:5000
+  - registry2:5000
+  - registry3:5000
+  - registry4:5000
 script:
   user: kingsalamander
   key_file: /root/.ssh/id_rsa
