@@ -11,10 +11,13 @@ data:
   config:
     insecure-registries:
       - registry:5000
-{% for registry in registries %}
+{% for registry in docker.registries %}
       - {{ registry }}
 {% endfor %}
     live-restore: true
+{% if docker.bip is defined %}
+    bip: {{ docker.bip }}
+{% endif %}
     max-concurrent-downloads: 10
     oom-score-adjust: -999
     storage-driver: overlay2
