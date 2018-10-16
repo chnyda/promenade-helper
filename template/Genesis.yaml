@@ -21,14 +21,16 @@ data:
     target_manifest: cluster-bootstrap
   labels:
     dynamic:
-      - calico-etcd=enabled
       - coredns=enabled
-      - kubernetes-apiserver=enabled
-      - kubernetes-controller-manager=enabled
-      - kubernetes-etcd=enabled
-      - kubernetes-scheduler=enabled
-      - promenade-genesis=enabled
       - ucp-control-plane=enabled
+      - promenade-genesis=enabled
+{% for type, elt in types.items() %}
+{% if genesis.hostname in elt['nodes'] %}
+{% for label in elt['labels'] %}
+      - {{ label }}
+{% endfor %}
+{% endif %}
+{% endfor %}
   images:
     armada: quay.io/attcomdev/armada:latest
     helm:
