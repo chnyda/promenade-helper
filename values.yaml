@@ -2,6 +2,7 @@ genesis:
   hostname: node01-HEAT_ID
   ip: 10.1.103.11
   mgmt_interface: ens3
+  external_ip: EXTERNAL_IP
 docker:
   registries:
     - 10.1.103.20:5000

@@ -19,6 +19,9 @@ data:
             - localhost
             - 127.0.0.1
             - 10.96.0.1
+{% if genesis.external_ip is defined %}
+            - {{ genesis.external_ip }}
+{% endif %}
 {% for node_name, node_ip in nodes %}
 {% if node_name in types['master']['nodes']%}
             - {{ node_ip }}
