@@ -19,6 +19,11 @@ data:
             - localhost
             - 127.0.0.1
             - 10.96.0.1
+{% for node_name, node_ip in nodes %}
+{% if node_name in types['master']['nodes']%}
+            - {{ node_ip }}
+{% endif %}
+{% endfor %}
           kubernetes_service_names:
             - kubernetes.default.svc.cluster.local
         - document_name: kubelet-genesis
