@@ -20,7 +20,8 @@ def generate_files():
         new_name = f.replace("template", "output")
         with open(new_name, 'w') as cur_file:
             cur_file.write(cur_env.get_template(f).render(
-        types=yaml_file['types'], genesis=yaml_file['genesis'], script=yaml_file['script'], docker=yaml_file['docker'],
+        types=yaml_file['types'], provisioner=yaml_file['provisioner'],
+        genesis=yaml_file['genesis'], script=yaml_file['script'], docker=yaml_file['docker'],
         node_keys=sorted(yaml_file['nodes'].keys()),nodes=sorted(yaml_file['nodes'].items())))
 
 

@@ -104,7 +104,11 @@ data:
         =0YYh
         -----END PGP PUBLIC KEY BLOCK-----
     additional:
+{% if provisioner.type == "ceph" %}
       - ceph-common=10.2.10-0ubuntu0.16.04.1
+{% elif provisioner.type == "nfs" %}
+      - nfs-common
+{% endif %}
       - curl
       - jq
     required:
