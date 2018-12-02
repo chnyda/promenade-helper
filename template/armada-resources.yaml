@@ -111,7 +111,7 @@ data:
   values: {}
   source:
     type: git
-    location: https://github.com/chnyda/openstack-helm-infra
+    location: https://github.com/openstack/openstack-helm-infra
     subpath: helm-toolkit
     reference: master
   dependencies: []
@@ -161,9 +161,9 @@ data:
   values: {}
   source:
     type: git
-    location: https://github.com/chnyda/openstack-helm-infra
+    location: https://github.com/openstack/openstack-helm-infra
     subpath: helm-toolkit
-    reference: master
+    reference: 681dee71b7befd199509b17852b3385d359a15a5
   dependencies: []
 ---
 schema: armada/Chart/v1
@@ -434,8 +434,8 @@ data:
       service_calico_etcd: false
   source:
     type: git
-    location: https://github.com/chnyda/openstack-helm-infra
-    reference: master
+    location: https://github.com/openstack/openstack-helm-infra
+    reference: 681dee71b7befd199509b17852b3385d359a15a5
     subpath: calico
   dependencies:
     - infra-helm-toolkit
@@ -500,6 +500,7 @@ data:
   values:
     conf:
       anchor:
+        enable_cleanup: false
         kubernetes_url: https://10.96.0.1:443
         services:
           kube-system:
@@ -614,9 +615,12 @@ data:
     command_prefix:
       - /apiserver
       - --authorization-mode=Node,RBAC
-      - --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
+      - --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,NodeRestriction,EventRateLimit
       - --service-cluster-ip-range=10.96.0.0/16
       - --endpoint-reconciler-type=lease
+      - --feature-gates=PodShareProcessNamespace=true
+      # NOTE(mark-burnett): This flag is removed in Kubernetes 1.11
+      - --repair-malformed-updates=false
     apiserver:
       etcd:
         endpoints: https://127.0.0.1:2378
@@ -624,18 +628,6 @@ data:
       tags:
         anchor: gcr.io/google_containers/hyperkube-amd64:v1.10.2
         apiserver: gcr.io/google_containers/hyperkube-amd64:v1.10.2
-    secrets:
-      service_account:
-        public_key: placeholder
-      tls:
-        ca: placeholder
-        cert: placeholder
-        key: placeholder
-      etcd:
-        tls:
-          ca: placeholder
-          cert: placeholder
-          key: placeholder
     network:
       kubernetes_service_ip: 10.96.0.1
       pod_cidr: 10.97.0.0/16
@@ -938,13 +930,13 @@ data:
   values:
     images:
       tags:
-        tiller: gcr.io/kubernetes-helm/tiller:v2.9.1
+        tiller: gcr.io/kubernetes-helm/tiller:v2.10.0
     labels:
       node_selector_key: ucp-control-plane
       node_selector_value: enabled
   source:
     type: git
-    location: https://github.com/att-comdev/armada
+    location: https://github.com/openstack/airship-armada
     subpath: charts/tiller
     reference: 8d1521e96c6b3163f7f6598ef15a11af0052cf04
   dependencies:
@@ -981,7 +973,7 @@ data:
     images:
       tags:
         dep_check: quay.io/stackanetes/kubernetes-entrypoint:v0.2.1
-        promenade: quay.io/attcomdev/promenade:latest
+        promenade: quay.io/airshipit/promenade:master
     manifests:
       job_ks_endpoints: false
       job_ks_service: false

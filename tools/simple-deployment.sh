@@ -2,7 +2,7 @@
 
 set -eux
 
-IMAGE_PROMENADE=${IMAGE_PROMENADE:-docker.io/breton/promenade:base}
+IMAGE_PROMENADE=${IMAGE_PROMENADE:-docker.io/breton/promenade:new}
 PROMENADE_DEBUG=${PROMENADE_DEBUG:-0}
 
 SCRIPT_DIR=$(realpath $(dirname $0))
