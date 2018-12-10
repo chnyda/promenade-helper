@@ -105,7 +105,7 @@ data:
         -----END PGP PUBLIC KEY BLOCK-----
     additional:
 {% if provisioner.type == "ceph" %}
-      - ceph-common=10.2.10-0ubuntu0.16.04.1
+      - ceph-common
 {% elif provisioner.type == "nfs" %}
       - nfs-common
 {% endif %}
@@ -113,5 +113,5 @@ data:
       - jq
     required:
       docker: docker-ce
-      socat: socat=1.7.3.1-1
+      socat: socat
 ...
