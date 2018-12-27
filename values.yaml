@@ -19,7 +19,7 @@ nodes:
   node03-HEAT_ID: 10.1.103.13
 
 provisioner:
-  type: ceph 
+  type: none
 
 types:
   common:

@@ -2,7 +2,7 @@
 
 set -eux
 
-IMAGE_PROMENADE=${IMAGE_PROMENADE:-docker.io/breton/promenade:cloud-openstack}
+IMAGE_PROMENADE=${IMAGE_PROMENADE:-docker.io/breton/promenade:openstacktry}
 PROMENADE_DEBUG=${PROMENADE_DEBUG:-0}
 
 SCRIPT_DIR=$(realpath $(dirname $0))
