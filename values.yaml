@@ -17,6 +17,9 @@ nodes:
   node01-HEAT_ID: 10.1.103.11
   node02-HEAT_ID: 10.1.103.12
   node03-HEAT_ID: 10.1.103.13
+  node04-HEAT_ID: 10.1.103.14
+  node05-HEAT_ID: 10.1.103.15
+  node06-HEAT_ID: 10.1.103.16
 
 provisioner:
   type: none
@@ -27,6 +30,9 @@ types:
       - node01-HEAT_ID
       - node02-HEAT_ID
       - node03-HEAT_ID
+      - node04-HEAT_ID
+      - node05-HEAT_ID
+      - node06-HEAT_ID
     labels:
       - calico-etcd=enabled
   master:
