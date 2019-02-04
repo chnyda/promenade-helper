@@ -138,8 +138,6 @@ data:
             - localhost
             - 10.96.232.136
 {% endfor %}
-        - document_name: calico-node-peer
-          common_name: calcico-node-peer
   keypairs:
     - name: service-account
       description: Service account signing key for use by Kubernetes controller-manager.

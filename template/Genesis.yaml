@@ -11,19 +11,23 @@ data:
   hostname: {{ genesis.hostname }}
   ip: {{ genesis.ip }}
   apiserver:
-    command_prefix:
-      - /apiserver
+    arguments:
       - --authorization-mode=Node,RBAC
-      - --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds
+      - --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota,DefaultTolerationSeconds,NodeRestriction,EventRateLimit
       - --service-cluster-ip-range=10.96.0.0/16
       - --endpoint-reconciler-type=lease
+      - --feature-gates=PodShareProcessNamespace=true
+      # NOTE(mark-burnett): This flag is removed in Kubernetes 1.11
+      - --repair-malformed-updates=false
+      - --admission-control-config-file=/etc/kubernetes/apiserver/acconfig.yaml
+      - --v=3
   armada:
     target_manifest: cluster-bootstrap
   labels:
     dynamic:
       - coredns=enabled
-      - ucp-control-plane=enabled
       - promenade-genesis=enabled
+      - ucp-control-plane=enabled
 {% for type, elt in types.items() %}
 {% if genesis.hostname in elt['nodes'] %}
 {% for label in elt['labels'] %}
@@ -32,16 +36,34 @@ data:
 {% endif %}
 {% endfor %}
   images:
-    armada: quay.io/attcomdev/armada:latest
+    armada: quay.io/airshipit/armada:master
     helm:
-      tiller: gcr.io/kubernetes-helm/tiller:v2.9.1
+      tiller: gcr.io/kubernetes-helm/tiller:v2.10.0
     kubernetes:
-      apiserver: gcr.io/google_containers/hyperkube-amd64:v1.10.2
-      controller-manager: gcr.io/google_containers/hyperkube-amd64:v1.10.2
+      apiserver: gcr.io/google_containers/hyperkube-amd64:v1.10.11
+      controller-manager: gcr.io/google_containers/hyperkube-amd64:v1.10.11
       etcd: quay.io/coreos/etcd:v3.2.14
-      scheduler: gcr.io/google_containers/hyperkube-amd64:v1.10.2
+      scheduler: gcr.io/google_containers/hyperkube-amd64:v1.10.11
   files:
     - path: /var/lib/anchor/calico-etcd-bootstrap
       content: "# placeholder for triggering calico etcd bootstrapping"
       mode: 0644
+    # NOTE(mark-burnett): These are referenced by the apiserver arguments above.
+    - path: /etc/genesis/apiserver/acconfig.yaml
+      mode: 0444
+      content: |
+        kind: AdmissionConfiguration
+        apiVersion: apiserver.k8s.io/v1alpha1
+        plugins:
+          - name: EventRateLimit
+            path: eventconfig.yaml
+    - path: /etc/genesis/apiserver/eventconfig.yaml
+      mode: 0444
+      content: |
+        kind: Configuration
+        apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+        limits:
+          - type: Server
+            qps: 1000
+            burst: 10000
 ...

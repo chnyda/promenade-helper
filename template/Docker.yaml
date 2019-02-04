@@ -18,6 +18,7 @@ data:
 {% if docker.bip is defined %}
     bip: {{ docker.bip }}
 {% endif %}
+    live-restore: true
     max-concurrent-downloads: 10
     oom-score-adjust: -999
     storage-driver: overlay2
