@@ -83,3 +83,4 @@ types:
       - kubernetes-controller-manager=enabled
       - kubernetes-scheduler=enabled
       - ucp-control-plane=enabled
+      - coredns=enabled
