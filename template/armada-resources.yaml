@@ -387,7 +387,7 @@ data:
         etcd_cert_file: /etc/calico/pki/crt
         etcd_key_file: /etc/calico/pki/key
         log_level: debug
-        mtu: 1500
+        mtu: {{ genesis.mtu }}
         ipam:
           type: calico-ipam
         policy:
@@ -417,7 +417,7 @@ data:
 
     networking:
       podSubnet: 10.97.0.0/16
-      mtu: 1500
+      mtu: {{ genesis.mtu }}
 
     images:
       tags:

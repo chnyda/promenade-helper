@@ -1,7 +1,9 @@
 genesis:
+  mtu: 1500
   hostname: cfg01
   ip: 10.1.103.10
   mgmt_interface: ens3
+  join_ip: 10.1.103.11
   #external_ip: EXTERNAL_IP
 docker:
   registries:

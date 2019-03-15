@@ -12,7 +12,7 @@ metadata:
 data:
   hostname: {{ node_name }}
   ip: {{ node_ip }}
-  join_ip: {{ genesis.ip }}
+  join_ip: {{ genesis.ip if node_name != genesis['hostname'] else genesis['join_ip'] }}
   labels:
     dynamic:
 {% for type, elt in types.items() %}
